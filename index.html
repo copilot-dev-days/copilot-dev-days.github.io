@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Copilot Dev Days — Workshops</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="light-theme.css">
+    <script src="theme-toggle.js"></script>
+    <style>
+        .workshop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .workshop-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; text-decoration: none; color: inherit; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 1rem; position: relative; overflow: hidden; }
+        .workshop-card:hover { border-color: var(--neon-magenta); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(255,0,255,0.15); }
+        .workshop-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta)); opacity: 0; transition: opacity 0.3s ease; }
+        .workshop-card:hover::before { opacity: 1; }
+        .card-badge { display: inline-block; padding: 0.35rem 0.75rem; background: rgba(0,245,255,0.1); border: 1px solid var(--border-color); border-radius: 50px; font-size: 0.8rem; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; width: fit-content; }
+        .card-title { font-size: 1.35rem; font-weight: 700; background: linear-gradient(135deg, var(--text-primary), var(--neon-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .card-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; flex: 1; }
+        .card-meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: auto; }
+        .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--neon-cyan); padding: 0.25rem 0.6rem; background: rgba(0,245,255,0.08); border-radius: 4px; }
+        .card-arrow { position: absolute; bottom: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: var(--border-color); transition: all 0.3s ease; }
+        .workshop-card:hover .card-arrow { color: var(--neon-magenta); transform: translateX(4px); }
+        .section-subtitle { text-align: center; color: var(--text-secondary); max-width: 700px; margin: -1.5rem auto 3rem; font-size: 1.1rem; }
+        .category-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--neon-magenta); font-family: 'JetBrains Mono', monospace; margin-bottom: 1.5rem; padding-left: 0.5rem; border-left: 3px solid var(--neon-magenta); }
+        .category-section { margin-bottom: 3rem; }
+        .org-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
+        .org-link:hover { color: var(--neon-cyan); }
+        .org-link svg { width: 20px; height: 20px; fill: currentColor; }
+        @media (max-width: 768px) {
+            .workshop-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div style="position:fixed;top:1rem;right:1rem;z-index:1000;">
+        <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">🎓 GitHub Copilot Workshops</div>
+            <h1>Copilot Dev Days</h1>
+            <p class="hero-subtitle">Hands-on workshops to master GitHub Copilot across every IDE, language, and workflow. Pick your stack, build something real, and level up your AI-powered development skills.</p>
+            <div class="hero-cta">
+                <a href="#workshops" class="btn btn-primary">🚀 Browse Workshops</a>
+                <a href="https://github.com/copilot-dev-days" class="btn btn-secondary" target="_blank">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                    GitHub Org
+                </a>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">9</div>
+                    <div class="stat-label">Workshops</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">IDEs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="workshops">
+        <div class="container">
+            <h2 class="section-title">Workshops</h2>
+            <p class="section-subtitle">Each workshop is self-paced, hands-on, and designed to be completed in about an hour. Choose your IDE and language to get started.</p>
+
+            <div class="category-section">
+                <div class="category-label">VS Code — Agent Lab (Social Bingo)</div>
+                <div class="workshop-grid">
+                    <a href="https://copilot-dev-days.github.io/agent-lab-python/" class="workshop-card">
+                        <span class="card-badge">🐍 Python + FastAPI + HTMX</span>
+                        <div class="card-title">Agent Lab — Python</div>
+                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~1hr</span>
+                            <span class="card-tag">4 parts</span>
+                            <span class="card-tag">9 steps</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                    <a href="https://copilot-dev-days.github.io/agent-lab-typescript/" class="workshop-card">
+                        <span class="card-badge">🟦 TypeScript + Vite + React</span>
+                        <div class="card-title">Agent Lab — TypeScript</div>
+                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~1hr</span>
+                            <span class="card-tag">4 parts</span>
+                            <span class="card-tag">9 steps</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                    <a href="https://copilot-dev-days.github.io/agent-lab-java/" class="workshop-card">
+                        <span class="card-badge">☕ Java 21 + Spring Boot</span>
+                        <div class="card-title">Agent Lab — Java</div>
+                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~1hr</span>
+                            <span class="card-tag">4 parts</span>
+                            <span class="card-tag">9 steps</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                    <a href="https://copilot-dev-days.github.io/agent-lab-dotnet/" class="workshop-card">
+                        <span class="card-badge">🟣 .NET 10 + Blazor</span>
+                        <div class="card-title">Agent Lab — .NET</div>
+                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~1hr</span>
+                            <span class="card-tag">4 parts</span>
+                            <span class="card-tag">9 steps</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-label">VS Code — Specialized Workshops</div>
+                <div class="workshop-grid">
+                    <a href="https://copilot-dev-days.github.io/mona-mayhem/" class="workshop-card">
+                        <span class="card-badge">🎮 VS Code + Astro + TypeScript</span>
+                        <div class="card-title">Mona Mayhem</div>
+                        <p class="card-desc">Build a retro arcade GitHub Contribution Battle Arena while mastering context engineering, Plan Mode, Agent Mode, design-first development, and multi-agent workflows.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~60min</span>
+                            <span class="card-tag">7 parts</span>
+                            <span class="card-tag">7 bonus</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                    <a href="https://copilot-dev-days.github.io/appmod-workshop-java/" class="workshop-card">
+                        <span class="card-badge">☕ Java + Spring Boot Modernization</span>
+                        <div class="card-title">App Modernization</div>
+                        <p class="card-desc">Modernize a legacy Java application using GitHub Copilot. Assess, upgrade from Java 8 to 21, add health endpoints, and containerize — all with AI-powered assistance.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~60min</span>
+                            <span class="card-tag">6 steps</span>
+                            <span class="card-tag">~35min hands-on</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-label">Terminal — Copilot CLI</div>
+                <div class="workshop-grid">
+                    <a href="https://copilot-dev-days.github.io/tailspin-toys-workshop/" class="workshop-card">
+                        <span class="card-badge">💻 Terminal + AI-Powered Development</span>
+                        <div class="card-title">Copilot CLI Workshop</div>
+                        <p class="card-desc">Master GitHub Copilot in the terminal. From custom instructions to MCP servers and custom agents — a hands-on workshop with the Tailspin Toys project.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~90min</span>
+                            <span class="card-tag">9 exercises</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-label">Other IDEs</div>
+                <div class="workshop-grid">
+                    <a href="https://copilot-dev-days.github.io/jetbrains-workshop/" class="workshop-card">
+                        <span class="card-badge">🧩 IntelliJ IDEA + Spring PetClinic</span>
+                        <div class="card-title">Copilot for JetBrains</div>
+                        <p class="card-desc">Master GitHub Copilot in JetBrains IDEs. From code completion to Agent Mode — build features for the Spring PetClinic app while learning AI-powered development.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~60min</span>
+                            <span class="card-tag">6 exercises</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                    <a href="https://copilot-dev-days.github.io/xcode-workshop/" class="workshop-card">
+                        <span class="card-badge">🍎 Xcode + SwiftUI</span>
+                        <div class="card-title">Copilot for Xcode</div>
+                        <p class="card-desc">Learn GitHub Copilot in Xcode with the Landmarks SwiftUI demo app. Explore code completion, Copilot Chat, Agent Mode, Plan Agent, MCP Servers, and Copilot Vision.</p>
+                        <div class="card-meta">
+                            <span class="card-tag">~60min</span>
+                            <span class="card-tag">8 exercises</span>
+                            <span class="card-tag">6 features</span>
+                        </div>
+                        <span class="card-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="prereqs">
+        <div class="container">
+            <h2 class="section-title">General Prerequisites</h2>
+            <div class="prereqs-grid">
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>GitHub Account</span>
+                </div>
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>GitHub Copilot License</span>
+                </div>
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>Git Installed</span>
+                </div>
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>Your IDE of Choice</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/copilot-dev-days" target="_blank">GitHub Organization</a>
+                <a href="https://docs.github.com/en/copilot" target="_blank">Copilot Docs</a>
+                <a href="https://github.com/github/awesome-copilot" target="_blank">Awesome Copilot</a>
+            </div>
+            <p class="footer-credit">Built with 💜 by the GitHub Copilot Team</p>
+        </div>
+    </footer>
+</body>
+</html>
