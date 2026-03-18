@@ -19,13 +19,14 @@ Landing page for **GitHub Copilot Dev Days** — a collection of hands-on worksh
 
 | Workshop | Stack | Duration |
 |----------|-------|----------|
-| [Mona Mayhem](https://copilot-dev-days.github.io/mona-mayhem/) | VS Code + Astro + TypeScript | ~60 min |
+| [Mona Mayhem — VS Code (Beginner)](https://copilot-dev-days.github.io/mona-mayhem/?track=vscode) | VS Code + Astro + TypeScript | ~60 min |
 | [App Modernization](https://copilot-dev-days.github.io/appmod-workshop-java/) | Java + Spring Boot Modernization | ~60 min |
 
 ### Terminal
 
 | Workshop | Stack | Duration |
 |----------|-------|----------|
+| [Mona Mayhem — CLI (Beginner)](https://copilot-dev-days.github.io/mona-mayhem/?track=cli) | Terminal + Copilot CLI | ~60 min |
 | [Copilot CLI Workshop](https://copilot-dev-days.github.io/tailspin-toys-workshop/) | Terminal + AI-Powered Development | ~90 min |
 
 ### IDEs
