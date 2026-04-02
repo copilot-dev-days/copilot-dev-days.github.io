@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSC44NDPLQ"></script>
@@ -14,9 +14,9 @@
     <title>GitHub Copilot Dev Days</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="light-theme.css">
-    <script src="theme-toggle.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../light-theme.css">
+    <script src="../theme-toggle.js"></script>
     <link rel="alternate" hreflang="en" href="https://copilot-dev-days.github.io/">
     <link rel="alternate" hreflang="pt-BR" href="https://copilot-dev-days.github.io/pt_BR/">
     <link rel="alternate" hreflang="es" href="https://copilot-dev-days.github.io/es/">
@@ -54,10 +54,10 @@
 <body>
     <div style="position:fixed;top:1rem;right:1rem;z-index:1000;display:flex;gap:0.5rem;align-items:center;">
         <div class="locale-picker" id="localePicker">
-            <button type="button" class="locale-toggle" aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">🌐</button>
-            <ul role="listbox" aria-label="Language">
-                <li role="option" data-locale="en" aria-selected="true" class="active">🇬🇧 English</li>
-                <li role="option" data-locale="es" aria-selected="false">🇪🇸 Español</li>
+            <button type="button" class="locale-toggle" aria-haspopup="listbox" aria-expanded="false" aria-label="Seleccionar idioma">🌐</button>
+            <ul role="listbox" aria-label="Idioma">
+                <li role="option" data-locale="en" aria-selected="false">🇬🇧 English</li>
+                <li role="option" data-locale="es" aria-selected="true" class="active">🇪🇸 Español</li>
                 <li role="option" data-locale="pt-BR" aria-selected="false">🇧🇷 Português (Brasil)</li>
             </ul>
         </div>
@@ -66,24 +66,24 @@
 
     <section class="hero">
         <div class="container">
-            <div class="hero-badge">🎓 GitHub Copilot Workshops</div>
+            <div class="hero-badge">🎓 Talleres de GitHub Copilot</div>
             <h1>GitHub Copilot Dev Days</h1>
-            <p class="hero-subtitle">Hands-on workshops to master GitHub Copilot across every IDE, language, and workflow. Pick your stack, build something real, and level up your AI-powered development skills.</p>
+            <p class="hero-subtitle">Talleres prácticos para dominar GitHub Copilot en todos los IDEs, lenguajes y flujos de trabajo. Elige tu stack, construye algo real y mejora tus habilidades de desarrollo con IA.</p>
             <div class="hero-cta">
-                <a href="#workshops" class="btn btn-primary">🚀 Browse Workshops</a>
+                <a href="#workshops" class="btn btn-primary">🚀 Ver Talleres</a>
                 <a href="https://github.com/copilot-dev-days" class="btn btn-secondary" target="_blank">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                    GitHub Org
+                    Org en GitHub
                 </a>
             </div>
             <div class="stats">
                 <div class="stat">
                     <div class="stat-value">12</div>
-                    <div class="stat-label">Workshops</div>
+                    <div class="stat-label">Talleres</div>
                 </div>
                 <div class="stat">
                     <div class="stat-value">6</div>
-                    <div class="stat-label">Languages</div>
+                    <div class="stat-label">Lenguajes</div>
                 </div>
                 <div class="stat">
                     <div class="stat-value">6</div>
@@ -95,70 +95,70 @@
 
     <section class="features" id="workshops">
         <div class="container">
-            <nav class="category-nav" aria-label="Workshop categories">
+            <nav class="category-nav" aria-label="Categorías de talleres">
                 <a href="#cat-learn-labs" class="category-pill">🌱 GitHub Learn Labs</a>
                 <a href="#cat-agent-lab" class="category-pill">🐍 VS Code — Agent Lab</a>
-                <a href="#cat-specialized" class="category-pill">🎮 VS Code — Specialized</a>
+                <a href="#cat-specialized" class="category-pill">🎮 VS Code — Especializados</a>
                 <a href="#cat-terminal" class="category-pill">💻 Terminal — CLI</a>
                 <a href="#cat-actions" class="category-pill">🤖 GitHub Actions</a>
                 <a href="#cat-ides" class="category-pill">🖥️ IDEs</a>
             </nav>
 
             <div class="category-section" id="cat-learn-labs">
-                <div class="category-label">🌱 Beginner Friendly — GitHub Learn Labs (Codespaces only)</div>
-                <p class="learn-labs-intro">New to GitHub Copilot? Start with these free, self-paced labs on <a href="https://learn.github.com/skills" target="_blank" style="color:var(--neon-cyan);">learn.github.com/skills</a> to get hands-on experience before diving into the workshops below. These GitHub Learn Labs are designed to be completed in GitHub Codespaces only, not on your local machine.</p>
+                <div class="category-label">🌱 Para Principiantes — GitHub Learn Labs (solo Codespaces)</div>
+                <p class="learn-labs-intro">¿Nuevo en GitHub Copilot? Comienza con estos laboratorios gratuitos y a tu ritmo en <a href="https://learn.github.com/skills" target="_blank" style="color:var(--neon-cyan);">learn.github.com/skills</a> para obtener experiencia práctica antes de sumergirte en los talleres a continuación. Estos GitHub Learn Labs están diseñados para completarse solo en GitHub Codespaces, no en tu máquina local.</p>
                 <div class="workshop-grid">
                     <a href="https://github.com/skills/getting-started-with-github-copilot" class="workshop-card" target="_blank">
-                        <span class="card-badge">🚀 Beginner</span>
-                        <div class="card-title">Get Started with GitHub Copilot</div>
-                        <p class="card-desc">Learn the basics of GitHub Copilot — code completions, chat, and inline suggestions. The perfect starting point for anyone new to AI-powered development.</p>
+                        <span class="card-badge">🚀 Principiante</span>
+                        <div class="card-title">Comienza con GitHub Copilot</div>
+                        <p class="card-desc">Aprende los conceptos básicos de GitHub Copilot — completions de código, chat y sugerencias en línea. El punto de partida perfecto para cualquier persona nueva en el desarrollo con IA.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Free</span>
-                            <span class="card-tag">Self-paced</span>
+                            <span class="card-tag">Gratis</span>
+                            <span class="card-tag">A tu ritmo</span>
                             <span class="card-tag">GitHub Skills</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
                     <a href="https://github.com/skills/customize-your-github-copilot-experience" class="workshop-card" target="_blank">
-                        <span class="card-badge">🎛️ Beginner</span>
-                        <div class="card-title">Customize Your GitHub Copilot Experience</div>
-                        <p class="card-desc">Learn how to tailor GitHub Copilot to your workflow with custom instructions, prompt engineering, and personal settings for more relevant suggestions.</p>
+                        <span class="card-badge">🎛️ Principiante</span>
+                        <div class="card-title">Personaliza tu Experiencia con GitHub Copilot</div>
+                        <p class="card-desc">Aprende a personalizar GitHub Copilot para tu flujo de trabajo con instrucciones personalizadas, ingeniería de prompts y configuraciones personales para sugerencias más relevantes.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Free</span>
-                            <span class="card-tag">Self-paced</span>
+                            <span class="card-tag">Gratis</span>
+                            <span class="card-tag">A tu ritmo</span>
                             <span class="card-tag">GitHub Skills</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
                     <a href="https://github.com/skills/integrate-mcp-with-copilot" class="workshop-card" target="_blank">
-                        <span class="card-badge">🔌 Beginner</span>
-                        <div class="card-title">Integrate MCP with GitHub Copilot</div>
-                        <p class="card-desc">Learn how to extend GitHub Copilot's capabilities using Model Context Protocol (MCP). Set up a GitHub MCP server and let Copilot manage issues, research projects, and open pull requests.</p>
+                        <span class="card-badge">🔌 Principiante</span>
+                        <div class="card-title">Integra MCP con GitHub Copilot</div>
+                        <p class="card-desc">Aprende a extender las capacidades de GitHub Copilot usando el Model Context Protocol (MCP). Configura un servidor MCP de GitHub y deja que Copilot gestione issues, investigue proyectos y abra pull requests.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Free</span>
-                            <span class="card-tag">Self-paced</span>
+                            <span class="card-tag">Gratis</span>
+                            <span class="card-tag">A tu ritmo</span>
                             <span class="card-tag">GitHub Skills</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
                     <a href="https://github.com/skills/expand-your-team-with-copilot" class="workshop-card" target="_blank">
-                        <span class="card-badge">🤝 Beginner</span>
-                        <div class="card-title">Expand Your Team with Copilot Coding Agent</div>
-                        <p class="card-desc">Discover how to delegate tasks to GitHub Copilot's coding agent. Let it open pull requests, fix bugs, and build features autonomously as a member of your team.</p>
+                        <span class="card-badge">🤝 Principiante</span>
+                        <div class="card-title">Amplía tu Equipo con el Copilot Coding Agent</div>
+                        <p class="card-desc">Descubre cómo delegar tareas al agente de codificación de GitHub Copilot. Deja que abra pull requests, corrija bugs y construya funcionalidades de forma autónoma como miembro de tu equipo.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Free</span>
-                            <span class="card-tag">Self-paced</span>
+                            <span class="card-tag">Gratis</span>
+                            <span class="card-tag">A tu ritmo</span>
                             <span class="card-tag">GitHub Skills</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
                     <a href="https://github.com/skills/create-applications-with-the-copilot-cli" class="workshop-card" target="_blank">
-                        <span class="card-badge">💻 Beginner</span>
-                        <div class="card-title">Create Apps with the Copilot CLI</div>
-                        <p class="card-desc">Use GitHub Copilot in the terminal to scaffold, build, and iterate on applications. Learn how to harness Copilot CLI to speed up command-line workflows.</p>
+                        <span class="card-badge">💻 Principiante</span>
+                        <div class="card-title">Crea Apps con el Copilot CLI</div>
+                        <p class="card-desc">Usa GitHub Copilot en la terminal para crear, construir e iterar aplicaciones. Aprende a aprovechar el Copilot CLI para acelerar flujos de trabajo en la línea de comandos.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Free</span>
-                            <span class="card-tag">Self-paced</span>
+                            <span class="card-tag">Gratis</span>
+                            <span class="card-tag">A tu ritmo</span>
                             <span class="card-tag">GitHub Skills</span>
                         </div>
                         <span class="card-arrow">→</span>
@@ -169,47 +169,47 @@
             <div class="category-section" id="cat-agent-lab">
                 <div class="category-label">VS Code — Agent Lab (Social Bingo)</div>
                 <div class="workshop-grid">
-                    <a href="https://copilot-dev-days.github.io/agent-lab-python/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/agent-lab-python/es/" class="workshop-card">
                         <span class="card-badge">🐍 Python + FastAPI + HTMX</span>
                         <div class="card-title">Agent Lab — Python</div>
-                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <p class="card-desc">Construye un juego de Social Bingo mientras dominas el Agent Mode de VS Code con GitHub Copilot. Aprende ingeniería de contexto, agentes personalizados y flujos de desarrollo AI-first.</p>
                         <div class="card-meta">
                             <span class="card-tag">~1hr</span>
-                            <span class="card-tag">4 parts</span>
-                            <span class="card-tag">9 steps</span>
+                            <span class="card-tag">4 partes</span>
+                            <span class="card-tag">9 pasos</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/agent-lab-typescript/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/agent-lab-typescript/es/" class="workshop-card">
                         <span class="card-badge">🟦 TypeScript + Vite + React</span>
                         <div class="card-title">Agent Lab — TypeScript</div>
-                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <p class="card-desc">Construye un juego de Social Bingo mientras dominas el Agent Mode de VS Code con GitHub Copilot. Aprende ingeniería de contexto, agentes personalizados y flujos de desarrollo AI-first.</p>
                         <div class="card-meta">
                             <span class="card-tag">~1hr</span>
-                            <span class="card-tag">4 parts</span>
-                            <span class="card-tag">9 steps</span>
+                            <span class="card-tag">4 partes</span>
+                            <span class="card-tag">9 pasos</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/agent-lab-java/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/agent-lab-java/es/" class="workshop-card">
                         <span class="card-badge">☕ Java 21 + Spring Boot</span>
                         <div class="card-title">Agent Lab — Java</div>
-                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <p class="card-desc">Construye un juego de Social Bingo mientras dominas el Agent Mode de VS Code con GitHub Copilot. Aprende ingeniería de contexto, agentes personalizados y flujos de desarrollo AI-first.</p>
                         <div class="card-meta">
                             <span class="card-tag">~1hr</span>
-                            <span class="card-tag">4 parts</span>
-                            <span class="card-tag">9 steps</span>
+                            <span class="card-tag">4 partes</span>
+                            <span class="card-tag">9 pasos</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/agent-lab-dotnet/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/agent-lab-dotnet/es/" class="workshop-card">
                         <span class="card-badge">🟣 .NET 10 + Blazor</span>
                         <div class="card-title">Agent Lab — .NET</div>
-                        <p class="card-desc">Build a Social Bingo game while mastering VS Code's Agent Mode with GitHub Copilot. Learn context engineering, custom agents, and AI-first development workflows.</p>
+                        <p class="card-desc">Construye un juego de Social Bingo mientras dominas el Agent Mode de VS Code con GitHub Copilot. Aprende ingeniería de contexto, agentes personalizados y flujos de desarrollo AI-first.</p>
                         <div class="card-meta">
                             <span class="card-tag">~1hr</span>
-                            <span class="card-tag">4 parts</span>
-                            <span class="card-tag">9 steps</span>
+                            <span class="card-tag">4 partes</span>
+                            <span class="card-tag">9 pasos</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -217,28 +217,28 @@
             </div>
 
             <div class="category-section" id="cat-specialized">
-                <div class="category-label">VS Code — Specialized Workshops</div>
+                <div class="category-label">VS Code — Talleres Especializados</div>
                 <div class="workshop-grid">
                     <a href="https://copilot-dev-days.github.io/mona-mayhem/?track=vscode" class="workshop-card">
                         <span class="card-badge">🎮 VS Code + Astro + TypeScript</span>
                         <div class="card-title">Mona Mayhem</div>
-                        <p class="card-desc">Build a retro arcade GitHub Contribution Battle Arena while mastering context engineering, Plan Mode, Agent Mode, design-first development, and multi-agent workflows.</p>
+                        <p class="card-desc">Construye una Arena de Batalla de Contribuciones de GitHub estilo arcade retro mientras dominas ingeniería de contexto, Plan Mode, Agent Mode, desarrollo design-first y flujos multi-agente.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Beginner</span>
+                            <span class="card-tag">Principiante</span>
                             <span class="card-tag">~60min</span>
-                            <span class="card-tag">7 parts</span>
+                            <span class="card-tag">7 partes</span>
                             <span class="card-tag">7 bonus</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/appmod-workshop-java/" class="workshop-card">
-                        <span class="card-badge">☕ Java + Spring Boot Modernization</span>
-                        <div class="card-title">App Modernization</div>
-                        <p class="card-desc">Modernize a legacy Java application using GitHub Copilot. Assess, upgrade from Java 8 to 21, add health endpoints, and containerize — all with AI-powered assistance.</p>
+                    <a href="https://copilot-dev-days.github.io/appmod-workshop-java/es/" class="workshop-card">
+                        <span class="card-badge">☕ Java + Modernización Spring Boot</span>
+                        <div class="card-title">Modernización de Aplicaciones</div>
+                        <p class="card-desc">Moderniza una aplicación Java heredada usando GitHub Copilot. Evalúa, actualiza de Java 8 a 21, agrega endpoints de salud y containeriza — todo con asistencia de IA.</p>
                         <div class="card-meta">
                             <span class="card-tag">~60min</span>
-                            <span class="card-tag">6 steps</span>
-                            <span class="card-tag">~35min hands-on</span>
+                            <span class="card-tag">6 pasos</span>
+                            <span class="card-tag">~35min práctica</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -251,20 +251,20 @@
                     <a href="https://copilot-dev-days.github.io/mona-mayhem/?track=cli" class="workshop-card">
                         <span class="card-badge">💻 Terminal + Copilot CLI</span>
                         <div class="card-title">Mona Mayhem</div>
-                        <p class="card-desc">Build a retro arcade GitHub Contribution Battle Arena while mastering context engineering, prompt-driven development, and terminal-first workflows with GitHub Copilot CLI.</p>
+                        <p class="card-desc">Construye una Arena de Batalla de Contribuciones de GitHub estilo arcade retro mientras dominas ingeniería de contexto, desarrollo orientado a prompts y flujos terminal-first con GitHub Copilot CLI.</p>
                         <div class="card-meta">
-                            <span class="card-tag">Beginner</span>
+                            <span class="card-tag">Principiante</span>
                             <span class="card-tag">~60min</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/tailspin-toys-workshop/" class="workshop-card">
-                        <span class="card-badge">💻 Terminal + AI-Powered Development</span>
-                        <div class="card-title">Copilot CLI Workshop</div>
-                        <p class="card-desc">Master GitHub Copilot in the terminal. From custom instructions to MCP servers and custom agents — a hands-on workshop with the Tailspin Toys project.</p>
+                    <a href="https://copilot-dev-days.github.io/tailspin-toys-workshop/es/" class="workshop-card">
+                        <span class="card-badge">💻 Terminal + Desarrollo con IA</span>
+                        <div class="card-title">Taller Copilot CLI</div>
+                        <p class="card-desc">Domina GitHub Copilot en la terminal. Desde instrucciones personalizadas hasta servidores MCP y agentes personalizados — un taller práctico con el proyecto Tailspin Toys.</p>
                         <div class="card-meta">
                             <span class="card-tag">~90min</span>
-                            <span class="card-tag">9 exercises</span>
+                            <span class="card-tag">9 ejercicios</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -272,15 +272,15 @@
             </div>
 
             <div class="category-section" id="cat-actions">
-                <div class="category-label">GitHub Actions — Agentic Workflows</div>
+                <div class="category-label">GitHub Actions — Flujos Agénticos</div>
                 <div class="workshop-grid">
-                    <a href="https://copilot-dev-days.github.io/agentic-workflows-workshop/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/agentic-workflows-workshop/es/" class="workshop-card">
                         <span class="card-badge">🤖 GitHub CLI + gh aw</span>
-                        <div class="card-title">Agentic Workflows</div>
-                        <p class="card-desc">Build and deploy agentic workflows using <code>gh aw</code>. Automate daily digests, pull Hacker News stories as GitHub issues, and wire up a ChatOps slash command — all from the command line.</p>
+                        <div class="card-title">Flujos Agénticos</div>
+                        <p class="card-desc">Construye y despliega flujos agénticos usando <code>gh aw</code>. Automatiza resúmenes diarios, importa historias de Hacker News como issues de GitHub y crea un comando slash ChatOps — todo desde la línea de comandos.</p>
                         <div class="card-meta">
                             <span class="card-tag">~75min</span>
-                            <span class="card-tag">3 exercises</span>
+                            <span class="card-tag">3 ejercicios</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -292,32 +292,32 @@
                 <div class="workshop-grid">
                     <a href="https://dotnet-presentations.github.io/visual-studio-github-copilot-lab/" class="workshop-card">
                         <span class="card-badge">🖥️ Visual Studio 2026 + .NET 10</span>
-                        <div class="card-title">Copilot for Visual Studio</div>
-                        <p class="card-desc">Complete and enhance the TinyShop application using GitHub Copilot in Visual Studio 2026. Explore code completion, Copilot Chat, Agent Mode, Custom Instructions, MCP Servers, Copilot Vision, and more.</p>
+                        <div class="card-title">Copilot para Visual Studio</div>
+                        <p class="card-desc">Completa y mejora la aplicación TinyShop usando GitHub Copilot en Visual Studio 2026. Explora completions de código, Copilot Chat, Agent Mode, Custom Instructions, MCP Servers, Copilot Vision y más.</p>
                         <div class="card-meta">
                             <span class="card-tag">~60min</span>
-                            <span class="card-tag">13 parts</span>
+                            <span class="card-tag">13 partes</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/jetbrains-workshop/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/jetbrains-workshop/es/" class="workshop-card">
                         <span class="card-badge">🧩 IntelliJ IDEA + Spring PetClinic</span>
-                        <div class="card-title">Copilot for JetBrains</div>
-                        <p class="card-desc">Master GitHub Copilot in JetBrains IDEs. From code completion to Agent Mode — build features for the Spring PetClinic app while learning AI-powered development.</p>
+                        <div class="card-title">Copilot para JetBrains</div>
+                        <p class="card-desc">Domina GitHub Copilot en los IDEs de JetBrains. Desde completions de código hasta Agent Mode — construye funcionalidades para la app Spring PetClinic mientras aprendes desarrollo con IA.</p>
                         <div class="card-meta">
                             <span class="card-tag">~60min</span>
-                            <span class="card-tag">6 exercises</span>
+                            <span class="card-tag">6 ejercicios</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/xcode-workshop/" class="workshop-card">
+                    <a href="https://copilot-dev-days.github.io/xcode-workshop/es/" class="workshop-card">
                         <span class="card-badge">🍎 Xcode + SwiftUI</span>
-                        <div class="card-title">Copilot for Xcode</div>
-                        <p class="card-desc">Learn GitHub Copilot in Xcode with the Landmarks SwiftUI demo app. Explore code completion, Copilot Chat, Agent Mode, Plan Agent, MCP Servers, and Copilot Vision.</p>
+                        <div class="card-title">Copilot para Xcode</div>
+                        <p class="card-desc">Aprende GitHub Copilot en Xcode con la app de demostración Landmarks en SwiftUI. Explora completions de código, Copilot Chat, Agent Mode, Plan Agent, MCP Servers y Copilot Vision.</p>
                         <div class="card-meta">
                             <span class="card-tag">~60min</span>
-                            <span class="card-tag">8 exercises</span>
-                            <span class="card-tag">6 features</span>
+                            <span class="card-tag">8 ejercicios</span>
+                            <span class="card-tag">6 funcionalidades</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -328,23 +328,23 @@
 
     <section class="prereqs">
         <div class="container">
-            <h2 class="section-title">General Prerequisites</h2>
+            <h2 class="section-title">Requisitos Previos</h2>
             <div class="prereqs-grid">
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span>GitHub Account</span>
+                    <span>Cuenta de GitHub</span>
                 </div>
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span>GitHub Copilot License</span>
+                    <span>Licencia GitHub Copilot</span>
                 </div>
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span>Git Installed</span>
+                    <span>Git Instalado</span>
                 </div>
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span>Your IDE of Choice</span>
+                    <span>Tu IDE Preferido</span>
                 </div>
             </div>
         </div>
@@ -353,12 +353,12 @@
     <footer>
         <div class="container">
             <div class="footer-links">
-                <a href="https://github.com/copilot-dev-days" target="_blank">GitHub Organization</a>
-                <a href="https://docs.github.com/en/copilot" target="_blank">Copilot Docs</a>
+                <a href="https://github.com/copilot-dev-days" target="_blank">Organización en GitHub</a>
+                <a href="https://docs.github.com/en/copilot" target="_blank">Documentación de Copilot</a>
                 <a href="https://github.com/github/awesome-copilot" target="_blank">Awesome Copilot</a>
             </div>
-            <p class="footer-credit">Built with 💜 by the GitHub Copilot Team</p>
-            <p class="footer-credit" style="margin-top: 1rem;">Organizers of GitHub Copilot Dev Days, visit <a href="https://github.com/github/GitHub-Copilot-Dev-Days/" target="_blank" style="color: var(--neon-cyan);">github.com/github/GitHub-Copilot-Dev-Days</a> for more information.</p>
+            <p class="footer-credit">Hecho con 💜 por el equipo de GitHub Copilot</p>
+            <p class="footer-credit" style="margin-top: 1rem;">Organizadores de GitHub Copilot Dev Days, visita <a href="https://github.com/github/GitHub-Copilot-Dev-Days/" target="_blank" style="color: var(--neon-cyan);">github.com/github/GitHub-Copilot-Dev-Days</a> para más información.</p>
         </div>
     </footer>
     <script>
