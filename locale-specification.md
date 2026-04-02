@@ -687,7 +687,66 @@ The recommended implementation sequence, prioritized by impact:
 
 ---
 
-## 12. File Naming & Locale Codes
+## 12. Translation Governance
+
+### English is the source of truth
+
+All content is authored in English first. English files are the **canonical source** — translated files are derived from them. When English content changes, translated content must be updated to match.
+
+### Content classification
+
+Content in these repos falls into two categories with different translation workflows:
+
+| Type | Examples | Translation approach |
+|------|----------|---------------------|
+| **Technical** | Code blocks, CLI commands, file paths, configuration snippets, step-by-step instructions that reference IDE features, API names, tool names | **Coding agents** should handle these translations. They can reliably propagate structural changes, update code references, and keep technical accuracy consistent across locales. |
+| **Non-technical** | Prose descriptions, workshop introductions, motivational text, "What You'll Learn" summaries, cultural references in bingo questions, hero subtitles | **Human contributions welcome.** Native speakers produce more natural, engaging prose than machine translation. Community pull requests improving these sections should be encouraged. |
+
+### Keeping translations in sync
+
+When English content is updated:
+
+1. **Use coding agents** (e.g., GitHub Copilot coding agent, Copilot CLI) to propagate changes to translated files. Agents should:
+   - Identify which English files changed (via diff against the previous version).
+   - Apply the corresponding structural changes to each locale's files.
+   - Translate new or modified technical content (steps, commands, UI references).
+   - Flag non-technical prose changes for human review rather than auto-translating them.
+
+2. **Open a PR per locale** with the agent-generated updates. Mark non-technical prose sections with `<!-- NEEDS_HUMAN_REVIEW -->` comments so reviewers know which parts would benefit from a native speaker's touch.
+
+3. **Label PRs** with `localization` and the locale code (e.g., `l10n:pt_BR`, `l10n:es`) for easy filtering.
+
+### Welcoming community contributions
+
+Each repo's `CONTRIBUTING.md` should include a section like:
+
+```markdown
+## 🌐 Translations
+
+We welcome contributions to improve translations! If you're a native speaker
+of Portuguese (BR) or Spanish and notice awkward phrasing, cultural mismatches,
+or opportunities to make the content more natural, please open a PR.
+
+**Guidelines:**
+- English is the source of truth — do not add content that doesn't exist in English.
+- Focus on improving prose quality, not restructuring content.
+- Do not translate code blocks, file paths, CLI commands, or tool/feature names.
+- Keep the same markdown structure and formatting as the English original.
+```
+
+### Translation freshness tracking
+
+To track whether translated files are up to date, each translated file should include a comment at the top referencing the English source commit it was last synced with:
+
+```markdown
+<!-- l10n-sync: english-commit-sha="abc1234" -->
+```
+
+This allows coding agents to quickly determine which files are stale by comparing the recorded SHA against the latest English file's history.
+
+---
+
+## 13. File Naming & Locale Codes
 
 | Locale | IETF tag | File suffix | HTML `lang` | Directory name |
 |--------|----------|-------------|-------------|----------------|
@@ -699,7 +758,7 @@ Use underscores (`pt_BR`) in file/directory names for cross-platform compatibili
 
 ---
 
-## 13. Cross-Repo Consistency Rules
+## 14. Cross-Repo Consistency Rules
 
 Since all five repos share the same locale picker UI and the four workshop repos share identical content structure:
 
@@ -712,7 +771,7 @@ Since all five repos share the same locale picker UI and the four workshop repos
 
 ---
 
-## 14. Quality Checklist
+## 15. Quality Checklist
 
 Before shipping a locale:
 
