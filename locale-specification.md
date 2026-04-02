@@ -1,13 +1,16 @@
 # Locale Specification — Agent Lab Workshops
 
 **Target locales:** Brazilian Portuguese (`pt_BR`), Spanish (`es`)  
-**Scope:** All four `agent-lab-*` repositories (dotnet, java, python, typescript)
+**Scope:** All four `agent-lab-*` repositories (dotnet, java, python, typescript) **and** the `copilot-dev-days.github.io` landing page repository  
+**Design reference:** [javaevolved.github.io](https://javaevolved.github.io) locale picker
 
 ---
 
 ## 1. Overview
 
-Each agent-lab repo is a self-contained workshop built around the same "Soc Ops" Social Bingo game. They share an identical content structure but use different tech stacks. This specification defines a **unified localization strategy** that works consistently across all four repos while respecting each stack's idiomatic patterns.
+Each agent-lab repo is a self-contained workshop built around the same "Soc Ops" Social Bingo game. They share an identical content structure but use different tech stacks. The central landing page at [copilot-dev-days.github.io](https://copilot-dev-days.github.io/) serves as the entry point linking to all workshops.
+
+This specification defines a **unified localization strategy** that works consistently across all five repositories (four workshops + landing page) while respecting each stack's idiomatic patterns. It also defines a **consistent locale selection UI** inspired by [javaevolved.github.io](https://javaevolved.github.io)'s language picker, to be shared across all pages.
 
 ### Content categories requiring localization
 
@@ -21,10 +24,245 @@ Each agent-lab repo is a self-contained workshop built around the same "Soc Ops"
 | **Copilot instructions** | `.github/instructions/*.md` | 🟢 Low |
 | **Copilot prompts** | `.github/prompts/*.md` | 🟢 Low |
 | **Solution checkpoints** | `.solutions/step-*/**` | ⚪ Optional |
+| **Landing page** | `copilot-dev-days.github.io/index.html` | 🔴 High |
 
 ---
 
-## 2. Workshop Documentation (`workshop/`)
+## 2. Locale Picker UI Design
+
+All pages across all repos must share a **consistent language-selection UI** modeled after the [javaevolved.github.io](https://javaevolved.github.io) locale picker. This ensures a familiar, professional experience regardless of which workshop or page the user is on.
+
+### 2.1 Design Reference
+
+The reference implementation is the globe-icon dropdown at [javaevolved.github.io](https://javaevolved.github.io):
+
+- A **🌐 globe button** in the top-right of the navigation bar.
+- Clicking it reveals a **dropdown listbox** anchored to the button's bottom-right.
+- Each option shows a **country flag emoji + language name** in its native script.
+- The currently active locale is **highlighted with accent color and bold weight**.
+- Clicking an option navigates to the locale-prefixed version of the current page.
+- Pressing `Escape` or clicking outside closes the dropdown.
+
+### 2.2 Supported Locales
+
+| Flag | Label | `data-locale` | URL prefix |
+|------|-------|---------------|------------|
+| 🇬🇧 | English | `en` | `/` (root) |
+| 🇧🇷 | Português (Brasil) | `pt-BR` | `/pt_BR/` |
+| 🇪🇸 | Español | `es` | `/es/` |
+
+### 2.3 HTML Markup
+
+Use the same semantic structure across all pages. The markup uses ARIA `listbox`/`option` roles for accessibility:
+
+```html
+<div class="locale-picker" id="localePicker">
+  <button type="button" class="locale-toggle"
+          aria-haspopup="listbox" aria-expanded="false"
+          aria-label="Select language">🌐</button>
+  <ul role="listbox" aria-label="Language">
+    <li role="option" data-locale="en" aria-selected="true" class="active">🇬🇧 English</li>
+    <li role="option" data-locale="es" aria-selected="false">🇪🇸 Español</li>
+    <li role="option" data-locale="pt-BR" aria-selected="false">🇧🇷 Português (Brasil)</li>
+  </ul>
+</div>
+```
+
+### 2.4 CSS
+
+Use CSS custom properties (already present in all repos' stylesheets) for theming. The picker must work in both dark and light themes:
+
+```css
+/* --- Locale Picker --- */
+.locale-picker {
+  position: relative;
+  display: inline-flex;
+}
+
+.locale-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: var(--radius-sm, 10px);
+  border: 1px solid var(--border, #25252f);
+  background: var(--surface, #14141a);
+  color: var(--text-muted, #6b6b76);
+  font-size: 1rem;
+  line-height: 1;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.locale-toggle:hover {
+  background: var(--accent, #fb923c);
+  color: #fff;
+  border-color: var(--accent, #fb923c);
+}
+
+.locale-picker ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  background: var(--surface, #14141a);
+  border: 1px solid var(--border, #25252f);
+  border-radius: var(--radius-sm, 10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  min-width: 180px;
+}
+
+.locale-picker li {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text, #e4e4e7);
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.locale-picker li:hover {
+  background: var(--accent, #fb923c);
+  color: #fff;
+}
+
+.locale-picker li.active {
+  font-weight: 600;
+  color: var(--accent, #fb923c);
+}
+
+.locale-picker li.active:hover {
+  color: #fff;
+}
+```
+
+### 2.5 JavaScript Behavior
+
+The picker requires a small script that handles detection, toggle, and navigation:
+
+```js
+/* --- Locale Picker --- */
+(function () {
+  // Detect current locale from URL path
+  const detectLocale = () => {
+    const match = location.pathname.match(/^\/(pt_BR|es)\//);
+    return match ? match[1] : 'en';
+  };
+
+  const locale = detectLocale();
+
+  const picker = document.getElementById('localePicker');
+  if (!picker) return;
+
+  const toggleBtn = picker.querySelector('.locale-toggle');
+  const list = picker.querySelector('ul');
+
+  // Mark the active locale
+  list.querySelectorAll('li').forEach(li => {
+    const liLocale = li.dataset.locale === 'pt-BR' ? 'pt_BR' : li.dataset.locale;
+    if (liLocale === locale) {
+      li.classList.add('active');
+      li.setAttribute('aria-selected', 'true');
+    } else {
+      li.classList.remove('active');
+      li.setAttribute('aria-selected', 'false');
+    }
+  });
+
+  const open = () => {
+    list.style.display = 'block';
+    toggleBtn.setAttribute('aria-expanded', 'true');
+  };
+  const close = () => {
+    list.style.display = 'none';
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  };
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    list.style.display === 'block' ? close() : open();
+  });
+
+  document.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  list.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const target = li.dataset.locale === 'pt-BR' ? 'pt_BR' : li.dataset.locale;
+      if (target === locale) { close(); return; }
+
+      let path = location.pathname;
+
+      // Strip current locale prefix
+      if (locale !== 'en') {
+        path = path.replace(new RegExp('^/' + locale), '');
+      }
+
+      // Add target locale prefix
+      if (target !== 'en') {
+        path = '/' + target + path;
+      }
+
+      localStorage.setItem('preferred-locale', target);
+      window.location.href = path + location.search;
+    });
+  });
+})();
+```
+
+### 2.6 Placement Rules
+
+The locale picker must appear in a consistent location across all pages:
+
+| Page type | Placement | Adjacent to |
+|-----------|-----------|-------------|
+| **Landing page** (`copilot-dev-days.github.io`) | Fixed top-right toolbar | Theme toggle button |
+| **Workshop `docs/index.html`** | Fixed top-right toolbar | Theme toggle button |
+| **Workshop `docs/step.html`** | Header navigation bar, right side | Previous/Next buttons |
+
+In all cases, the globe button sits **next to the existing theme-toggle button**, using the same size and border styling. For pages with a fixed top-right toolbar:
+
+```html
+<div style="position:fixed;top:1rem;right:1rem;z-index:1000;display:flex;gap:0.5rem;">
+    <div class="locale-picker" id="localePicker">
+      <!-- ... markup from 2.3 ... -->
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+</div>
+```
+
+For pages with a header nav bar (e.g., `step.html`):
+
+```html
+<nav class="header-nav">
+    <div class="locale-picker" id="localePicker">
+      <!-- ... markup from 2.3 ... -->
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+    <button class="nav-btn" id="prevBtn" disabled>← Previous</button>
+    <button class="nav-btn" id="nextBtn">Next →</button>
+</nav>
+```
+
+### 2.7 SEO: `hreflang` Tags
+
+All HTML pages must include `<link rel="alternate" hreflang="...">` tags in `<head>` for each locale, plus an `x-default`:
+
+```html
+<link rel="alternate" hreflang="en" href="https://copilot-dev-days.github.io/agent-lab-python/">
+<link rel="alternate" hreflang="pt-BR" href="https://copilot-dev-days.github.io/agent-lab-python/pt_BR/">
+<link rel="alternate" hreflang="es" href="https://copilot-dev-days.github.io/agent-lab-python/es/">
+<link rel="alternate" hreflang="x-default" href="https://copilot-dev-days.github.io/agent-lab-python/">
+```
+
+---
+
+## 3. Workshop Documentation (`workshop/`)
 
 ### Strategy: Locale subdirectories with full markdown copies
 
@@ -71,7 +309,7 @@ workshop/
 
 ---
 
-## 3. Docs Site (`docs/`)
+## 4. Docs Site (`docs/`)
 
 ### Strategy: Locale-specific HTML pages + locale-aware step viewer
 
@@ -145,7 +383,7 @@ const markdownUrl = `${repoBase}/workshop/pt_BR/${stepFile}.md`;
 
 ---
 
-## 4. Root `README.md`
+## 5. Root `README.md`
 
 ### Strategy: Locale badge links + translated README copies
 
@@ -167,7 +405,7 @@ Add locale badges at the top of each README:
 
 ---
 
-## 5. App UI Strings
+## 6. App UI Strings
 
 ### Strategy: Per-stack idiomatic i18n with a shared string catalog
 
@@ -265,7 +503,7 @@ src/
 
 ---
 
-## 6. Game Data (Questions / Prompts)
+## 7. Game Data (Questions / Prompts)
 
 ### Strategy: Locale-keyed data files alongside existing data
 
@@ -333,7 +571,7 @@ export const questionsByLocale: Record<string, string[]> = {
 
 ---
 
-## 7. Copilot Configuration Files (`.github/`)
+## 8. Copilot Configuration Files (`.github/`)
 
 ### Strategy: Keep English originals, add locale-aware guidance
 
@@ -356,7 +594,7 @@ Never hardcode English strings in UI components — use the locale string system
 
 ---
 
-## 8. Solution Checkpoints (`.solutions/`)
+## 9. Solution Checkpoints (`.solutions/`)
 
 ### Strategy: Do not localize
 
@@ -370,20 +608,86 @@ If a fully localized workshop experience is desired in the future, a separate br
 
 ---
 
-## 9. Implementation Order
+## 10. Landing Page (`copilot-dev-days.github.io`)
 
-The recommended implementation sequence, prioritized by impact:
+### Strategy: Locale-specific HTML pages + shared locale picker
 
-1. **Workshop markdown** (`workshop/pt_BR/`, `workshop/es/`) — the primary content attendees read.
-2. **Docs site** (`docs/pt_BR/`, `docs/es/`, `locale.js`) — the entry point for the workshop.
-3. **Root README** (`README.pt_BR.md`, `README.es.md`) — first thing visitors see on GitHub.
-4. **App UI strings** — per-stack i18n setup + string catalogs.
-5. **Game data** — translated bingo question sets.
-6. **Copilot config** — locale-awareness note in instructions.
+The central landing page at `copilot-dev-days.github.io` lives in a **separate repository** (`copilot-dev-days/copilot-dev-days.github.io`). It must also be localized and must use the **exact same locale picker UI** (Section 2) as the individual workshop pages.
+
+### Directory layout
+
+```
+copilot-dev-days.github.io/
+├── index.html                  ← English (default)
+├── styles.css                  ← Shared
+├── light-theme.css
+├── theme-toggle.js
+├── locale-picker.css           ← NEW: locale picker styles (Section 2.4)
+├── locale-picker.js            ← NEW: locale picker script (Section 2.5)
+├── locale-specification.md
+├── pt_BR/
+│   └── index.html
+└── es/
+    └── index.html
+```
+
+### Content to translate
+
+The landing page contains:
+
+| Element | English | Translate? |
+|---------|---------|------------|
+| Page `<title>` | "GitHub Copilot Dev Days" | ✅ Yes |
+| Hero badge | "🎓 GitHub Copilot Workshops" | ✅ Yes |
+| Hero heading | "GitHub Copilot Dev Days" | ✅ Yes |
+| Hero subtitle | "Hands-on workshops to master GitHub Copilot..." | ✅ Yes |
+| "Browse Workshops" button | | ✅ Yes |
+| Stats labels | "Workshops", "Languages", "IDEs" | ✅ Yes |
+| Category section titles | "GitHub Learn Labs", "VS Code — Agent Lab", etc. | ✅ Yes |
+| Workshop card titles & descriptions | | ✅ Yes |
+| Card metadata labels | "~1hr", "4 parts", "9 steps", etc. | ✅ Yes |
+| Prerequisites section | "General Prerequisites", items | ✅ Yes |
+| Footer links and credit text | | ✅ Yes |
+| GitHub Copilot / tool names | "GitHub Copilot", "VS Code", etc. | ❌ Keep English |
+| Workshop URLs | | ❌ Keep (link to locale-specific workshop pages when available) |
+
+### Workshop card links in localized pages
+
+When the landing page is viewed in a locale, workshop cards should link to the localized version of each workshop's docs site:
+
+```html
+<!-- English -->
+<a href="https://copilot-dev-days.github.io/agent-lab-python/">
+
+<!-- Portuguese -->
+<a href="https://copilot-dev-days.github.io/agent-lab-python/pt_BR/">
+
+<!-- Spanish -->
+<a href="https://copilot-dev-days.github.io/agent-lab-python/es/">
+```
+
+### Locale picker placement
+
+The existing fixed-position theme toggle at `position:fixed;top:1rem;right:1rem` must be extended to include the locale picker alongside it (see Section 2.6).
 
 ---
 
-## 10. File Naming & Locale Codes
+## 11. Implementation Order
+
+The recommended implementation sequence, prioritized by impact:
+
+1. **Locale picker UI** (Section 2) — implement the shared CSS/JS component first; all pages need it.
+2. **Landing page** (`copilot-dev-days.github.io/pt_BR/`, `es/`) — the central entry point for all workshops.
+3. **Workshop markdown** (`workshop/pt_BR/`, `workshop/es/`) — the primary content attendees read.
+4. **Docs site** (`docs/pt_BR/`, `docs/es/`) — the entry point for each individual workshop.
+5. **Root README** (`README.pt_BR.md`, `README.es.md`) — first thing visitors see on GitHub.
+6. **App UI strings** — per-stack i18n setup + string catalogs.
+7. **Game data** — translated bingo question sets.
+8. **Copilot config** — locale-awareness note in instructions.
+
+---
+
+## 12. File Naming & Locale Codes
 
 | Locale | IETF tag | File suffix | HTML `lang` | Directory name |
 |--------|----------|-------------|-------------|----------------|
@@ -395,27 +699,35 @@ Use underscores (`pt_BR`) in file/directory names for cross-platform compatibili
 
 ---
 
-## 11. Cross-Repo Consistency Rules
+## 13. Cross-Repo Consistency Rules
 
-Since all four repos share the same workshop structure and game content:
+Since all five repos share the same locale picker UI and the four workshop repos share identical content structure:
 
-1. **Translate once, apply four times.** Workshop markdown, docs HTML, README, and game questions are identical across repos (modulo stack-specific references). Translate the content once and adapt only stack-specific fragments (e.g., "Python 3.13 & uv" → "Java 21 & Maven").
-2. **Keep locale directory structure identical** across all four repos.
-3. **Use the same canonical string keys** (Section 5.1) across all stacks for the app UI.
-4. **Coordinate releases** — all four repos should ship a new locale at the same time.
+1. **Shared locale picker.** The locale picker HTML/CSS/JS (Section 2) must be identical across all five repos. Consider extracting it into a shared snippet or copying verbatim.
+2. **Translate once, apply four times.** Workshop markdown, docs HTML, README, and game questions are identical across repos (modulo stack-specific references). Translate the content once and adapt only stack-specific fragments (e.g., "Python 3.13 & uv" → "Java 21 & Maven").
+3. **Keep locale directory structure identical** across all repos.
+4. **Use the same canonical string keys** (Section 6.1) across all stacks for the app UI.
+5. **Landing page links.** Localized landing page cards must link to the corresponding locale path on each workshop's docs site.
+6. **Coordinate releases** — all five repos should ship a new locale at the same time.
 
 ---
 
-## 12. Quality Checklist
+## 14. Quality Checklist
 
 Before shipping a locale:
 
+- [ ] Locale picker (🌐) renders and functions on all pages
+- [ ] Locale picker design matches javaevolved.github.io reference
+- [ ] Landing page (`copilot-dev-days.github.io`) translated with correct `lang` attribute
+- [ ] Landing page workshop cards link to localized workshop docs
 - [ ] All 7 workshop markdown files translated and link-checked
 - [ ] Docs site pages translated with correct `lang` attribute
-- [ ] Language switcher works on docs site
+- [ ] Language switcher works on docs site (landing + step viewer)
+- [ ] `hreflang` tags present in all HTML `<head>` sections
 - [ ] README translated with cross-locale badges
 - [ ] App UI strings render correctly (no truncation, no encoding issues)
 - [ ] Game questions make cultural sense in the target locale
 - [ ] Code blocks, file paths, and CLI commands left untranslated
 - [ ] Navigation (Previous/Next) works in localized step viewer
 - [ ] No broken links in translated content
+- [ ] Locale picker appearance is consistent across light and dark themes
