@@ -20,6 +20,7 @@
     <link rel="alternate" hreflang="en" href="https://copilot-dev-days.github.io/">
     <link rel="alternate" hreflang="pt-BR" href="https://copilot-dev-days.github.io/pt_BR/">
     <link rel="alternate" hreflang="es" href="https://copilot-dev-days.github.io/es/">
+    <link rel="alternate" hreflang="fr" href="https://copilot-dev-days.github.io/fr/">
     <link rel="alternate" hreflang="x-default" href="https://copilot-dev-days.github.io/">
     <style>
         .workshop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
@@ -59,6 +60,7 @@
                 <li role="option" data-locale="en" aria-selected="false">🇬🇧 English</li>
                 <li role="option" data-locale="es" aria-selected="true" class="active">🇪🇸 Español</li>
                 <li role="option" data-locale="pt-BR" aria-selected="false">🇧🇷 Português (Brasil)</li>
+                <li role="option" data-locale="fr" aria-selected="false">🇫🇷 Français</li>
             </ul>
         </div>
         <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
@@ -367,43 +369,80 @@
             pill.addEventListener('click', e => {
                 e.preventDefault();
                 const target = document.querySelector(pill.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
         const pills = document.querySelectorAll('.category-pill');
         const sections = document.querySelectorAll('.category-section[id]');
         window.addEventListener('scroll', () => {
             let current = '';
-            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 120) {
+                    current = s.id;
+                }
+            });
             pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === '#' + current));
         });
     </script>
     <script>
 (function () {
-  var match = location.pathname.match(/^\/(pt_BR|es)\//);
+  var match = location.pathname.match(/^\/(pt_BR|es|fr)\//);
   var locale = match ? match[1] : 'en';
   var picker = document.getElementById('localePicker');
-  if (!picker) return;
+  if (!picker) {
+    return;
+  }
   var toggleBtn = picker.querySelector('.locale-toggle');
   var list = picker.querySelector('ul');
   list.querySelectorAll('li').forEach(function(li) {
     var liLocale = li.dataset.locale === 'pt-BR' ? 'pt_BR' : li.dataset.locale;
-    if (liLocale === locale) { li.classList.add('active'); li.setAttribute('aria-selected','true'); }
-    else { li.classList.remove('active'); li.setAttribute('aria-selected','false'); }
+    if (liLocale === locale) {
+      li.classList.add('active');
+      li.setAttribute('aria-selected','true');
+    } else {
+      li.classList.remove('active');
+      li.setAttribute('aria-selected','false');
+    }
   });
-  function open() { list.style.display='block'; toggleBtn.setAttribute('aria-expanded','true'); }
-  function close() { list.style.display='none'; toggleBtn.setAttribute('aria-expanded','false'); }
-  toggleBtn.addEventListener('click', function(e) { e.stopPropagation(); list.style.display==='block' ? close() : open(); });
+  function open() {
+    list.style.display = 'block';
+    toggleBtn.setAttribute('aria-expanded','true');
+  }
+  function close() {
+    list.style.display = 'none';
+    toggleBtn.setAttribute('aria-expanded','false');
+  }
+  toggleBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (list.style.display === 'block') {
+      close();
+    } else {
+      open();
+    }
+  });
   document.addEventListener('click', close);
-  document.addEventListener('keydown', function(e) { if (e.key==='Escape') close(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      close();
+    }
+  });
   list.querySelectorAll('li').forEach(function(li) {
     li.addEventListener('click', function(e) {
       e.stopPropagation();
       var target = li.dataset.locale === 'pt-BR' ? 'pt_BR' : li.dataset.locale;
-      if (target === locale) { close(); return; }
+      if (target === locale) {
+        close();
+        return;
+      }
       var path = location.pathname;
-      if (locale !== 'en') path = path.replace(new RegExp('^/' + locale), '');
-      if (target !== 'en') path = '/' + target + path;
+      if (locale !== 'en') {
+        path = path.replace(/^\/(pt_BR|es|fr)/, '');
+      }
+      if (target !== 'en') {
+        path = '/' + target + path;
+      }
       localStorage.setItem('preferred-locale', target);
       window.location.href = path;
     });

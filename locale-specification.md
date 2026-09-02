@@ -50,6 +50,7 @@ The reference implementation is the globe-icon dropdown at [javaevolved.github.i
 | 🇬🇧 | English | `en` | `/` (root) |
 | 🇧🇷 | Português (Brasil) | `pt-BR` | `/pt_BR/` |
 | 🇪🇸 | Español | `es` | `/es/` |
+| 🇫🇷 | Français | `fr` | `/fr/` |
 
 ### 2.3 HTML Markup
 
