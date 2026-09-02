@@ -48,11 +48,15 @@ Landing page for **GitHub Copilot Dev Days** — a collection of hands-on worksh
 
 This is a static site hosted on GitHub Pages. To run locally, serve the files with any static file server:
 
-```sh
-# Example using Python
-python3 -m http.server
+Python:
 
-# Example using Node.js
+```sh
+python3 -m http.server
+```
+
+Node.js:
+
+```sh
 npx serve
 ```
 
